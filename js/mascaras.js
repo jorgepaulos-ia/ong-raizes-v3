@@ -66,9 +66,36 @@ campoCPF.addEventListener('input', () => {
   );
 });
 
-// Projeto acadêmico: não envia dados a nenhum servidor.
-document.querySelector('.formulario').addEventListener('submit', (evento) => {
+// Envio do formulário (projeto acadêmico: nenhum dado sai do navegador).
+// A validação continua nativa: o evento "submit" só dispara se todos os
+// campos forem válidos. Se algum falhar, o navegador dispara "invalid".
+const formulario = document.querySelector('.formulario');
+const alertaErro = document.getElementById('alerta-erro');
+const alertaSucesso = document.getElementById('alerta-sucesso');
+const botaoEnviar = formulario.querySelector('button[type="submit"]');
+
+formulario.addEventListener('invalid', () => {
+  alertaSucesso.hidden = true;
+  alertaErro.hidden = false;
+}, true); // "true" captura o evento, que não sobe dos campos até o form
+
+formulario.addEventListener('submit', (evento) => {
   evento.preventDefault();
-  alert('Cadastro validado com sucesso! (Simulação: nenhum dado foi enviado.)');
-  evento.target.reset();
+  alertaErro.hidden = true;
+
+  // Estado :disabled do botão enquanto "envia", evitando clique duplo
+  botaoEnviar.disabled = true;
+  botaoEnviar.textContent = 'Enviando…';
+
+  setTimeout(() => {
+    formulario.reset();
+    botaoEnviar.disabled = false;
+    botaoEnviar.textContent = 'Enviar cadastro';
+    alertaSucesso.hidden = false;
+    alertaSucesso.focus(); // leva o foco (e o leitor de tela) até a mensagem
+  }, 1200);
+});
+
+formulario.addEventListener('reset', () => {
+  alertaErro.hidden = true;
 });

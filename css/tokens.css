@@ -28,8 +28,10 @@
   --cor-neutro-900: #1d2522;     /* texto principal (14.4:1)                */
 
   /* Feedback: estados de formulário e mensagens */
-  --cor-sucesso: #1e7b34;        /* 5.3:1 */
-  --cor-erro:    #b3261e;        /* 6.5:1 */
+  --cor-sucesso:     #1e7b34;    /* 5.3:1 */
+  --cor-sucesso-100: #e8f3ea;    /* fundo do alerta de sucesso (4.7:1)   */
+  --cor-erro:        #b3261e;    /* 6.5:1 */
+  --cor-erro-100:    #fbeceb;    /* fundo do alerta de erro (5.7:1)      */
 
   /* Papéis semânticos: os componentes usam estes nomes, não os tons */
   --cor-fundo:         var(--cor-neutro-50);

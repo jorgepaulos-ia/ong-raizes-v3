@@ -317,7 +317,9 @@
   }
 }
 
-/* ---------- Botões ----------------------------------------------------- */
+/* ---------- Botões ----------------------------------------------------
+   Estados: repouso > :hover (escurece e ganha sombra) > :active (afunda
+   1px) > :focus-visible (contorno âmbar) > :disabled (apagado, sem reação). */
 .botao {
   display: inline-flex;
   align-items: center;
@@ -333,13 +335,30 @@
   font-weight: var(--peso-forte);
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--transicao), border-color var(--transicao);
+  transition: background-color var(--transicao), border-color var(--transicao),
+              box-shadow var(--transicao), transform var(--transicao);
 }
 
-.botao:hover {
+.botao:hover:not(:disabled) {
   background: var(--cor-marca-escura);
   border-color: var(--cor-marca-escura);
   color: var(--cor-neutro-0);
+  box-shadow: var(--sombra-2);
+}
+
+.botao:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.botao:focus-visible {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 3px;
+}
+
+.botao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .botao--secundario {
@@ -347,9 +366,10 @@
   color: var(--cor-marca);
 }
 
-.botao--secundario:hover {
+.botao--secundario:hover:not(:disabled) {
   background: var(--cor-primaria-100);
   color: var(--cor-marca-escura);
+  box-shadow: none;
 }
 
 .grupo-botoes {
@@ -637,25 +657,56 @@
   padding: var(--esp-2) var(--esp-3);
   border: 1px solid var(--cor-borda-campo);
   border-radius: var(--raio-medio);
-  background: var(--cor-superficie);
+  background: var(--cor-superficie) no-repeat right var(--esp-3) center / 1.25rem;
   color: var(--cor-texto);
   font: inherit;
   transition: border-color var(--transicao), box-shadow var(--transicao);
 }
 
-.campo__entrada:focus-visible {
-  border-color: var(--cor-marca);
-  outline-offset: 0;
+.campo__entrada:hover {
+  border-color: var(--cor-texto-suave);
 }
 
-/* Feedback de validação só depois que o usuário interage com o campo */
+.campo__entrada:focus-visible {
+  border-color: var(--cor-marca);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--cor-foco);
+}
+
+/* Validação: só depois que a pessoa interage com o campo (:user-valid e
+   :user-invalid não acusam erro num formulário que acabou de abrir).
+   Além da cor, há um ícone (✓ ou !) e uma frase, para não depender só
+   da cor (WCAG 1.4.1). */
 .campo__entrada:user-invalid {
+  padding-right: var(--esp-7);
   border-color: var(--cor-erro);
   box-shadow: 0 0 0 1px var(--cor-erro);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23b3261e'/%3E%3Cpath d='M10 5v6' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='14.6' r='1.3' fill='%23fff'/%3E%3C/svg%3E");
 }
 
 .campo__entrada:user-valid {
+  padding-right: var(--esp-7);
   border-color: var(--cor-sucesso);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%231e7b34'/%3E%3Cpath d='M5.5 10.5l3 3 6-6.5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* select e date já têm ícone próprio do navegador à direita; o seletor
+   repete os estados para vencer a especificidade das regras acima */
+select.campo__entrada:is(:user-valid, :user-invalid),
+input[type="date"].campo__entrada:is(:user-valid, :user-invalid) {
+  background-image: none;
+  padding-right: var(--esp-3);
+}
+
+.campo:has(.campo__entrada:user-invalid) .campo__rotulo {
+  color: var(--cor-erro);
+}
+
+.campo:has(.campo__entrada:user-invalid)::after {
+  content: "Verifique este campo.";
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-medio);
+  color: var(--cor-erro);
 }
 
 .campo__ajuda {
@@ -694,6 +745,65 @@
 
 .obrigatorio {
   color: var(--cor-erro);
+}
+
+/* ---------- Alertas contextuais -------------------------------------- */
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  padding: var(--esp-4);
+  border: 1px solid;
+  border-left-width: 6px;
+  border-radius: var(--raio-medio);
+  font-weight: var(--peso-medio);
+}
+
+.alerta p {
+  margin: 0;
+}
+
+.alerta[hidden] {
+  display: none;
+}
+
+.alerta::before {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: var(--cor-neutro-0);
+  font-weight: var(--peso-forte);
+}
+
+.alerta--sucesso {
+  border-color: var(--cor-sucesso);
+  background: var(--cor-sucesso-100);
+  color: var(--cor-sucesso);
+}
+
+.alerta--sucesso::before {
+  content: "✓";
+  background: var(--cor-sucesso);
+}
+
+.alerta--erro {
+  border-color: var(--cor-erro);
+  background: var(--cor-erro-100);
+  color: var(--cor-erro);
+}
+
+.alerta--erro::before {
+  content: "!";
+  background: var(--cor-erro);
+}
+
+.alerta:focus {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
 }
 
 /* ---------- Painel lateral do cadastro -------------------------------- */

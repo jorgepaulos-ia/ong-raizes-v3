@@ -58,6 +58,13 @@
     <div class="container secao secao--colada">
       <div class="grid">
         <form class="formulario col-12 col-lg-8" action="#" method="post">
+          <div class="alerta alerta--erro" id="alerta-erro" role="alert" tabindex="-1" hidden>
+            <p>Alguns campos precisam de atenção. Procure o aviso “Verifique este campo” no formulário abaixo.</p>
+          </div>
+          <div class="alerta alerta--sucesso" id="alerta-sucesso" role="status" tabindex="-1" hidden>
+            <p>Cadastro recebido! Nossa equipe entrará em contato em até cinco dias úteis. (Simulação: nenhum dado foi enviado.)</p>
+          </div>
+
           <fieldset class="formulario__grupo">
             <legend class="formulario__legenda">Dados pessoais</legend>
             <div class="grid">
