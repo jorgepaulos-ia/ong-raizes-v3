@@ -20,7 +20,9 @@ ong-raizes/
 │   ├── base.css         (estilos dos elementos HTML)
 │   ├── layout.css       (grid de 12 colunas e breakpoints)
 │   └── componentes.css  (componentes no padrão BEM, com Flexbox)
-├── js/   (mascaras.js: máscaras do formulário | menu.js: menu hambúrguer e submenu)mascaras.js
+├── js/
+│   ├── mascaras.js      (máscaras e validação do CPF no cadastro)
+│   └── menu.js          (menu hambúrguer e submenu de Projetos)
 └── img/  (logotipo e ilustrações em SVG)
 ```
 
