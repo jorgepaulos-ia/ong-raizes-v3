@@ -1,6 +1,6 @@
 # Instituto Raízes do Amanhã
 
-Projeto acadêmico da Experiência Prática I, disciplina de Desenvolvimento Front-end. A ONG é fictícia.
+Projeto acadêmico das Experiências Práticas I e II, disciplina de Desenvolvimento Front-end. A ONG é fictícia.
 
 ## Páginas
 
@@ -15,7 +15,11 @@ ong-raizes/
 ├── index.html
 ├── projetos.html
 ├── cadastro.html
-├── css/estilo.css
+├── css/
+│   ├── tokens.css       (design system: cores, tipografia, espaçamentos)
+│   ├── base.css         (estilos dos elementos HTML)
+│   ├── layout.css       (grid de 12 colunas e breakpoints)
+│   └── componentes.css  (componentes no padrão BEM, com Flexbox)
 ├── js/mascaras.js
 └── img/  (logotipo e ilustrações em SVG)
 ```

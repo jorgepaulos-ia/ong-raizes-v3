@@ -1,0 +1,524 @@
+/* ==========================================================================
+   COMPONENTES: blocos reutilizáveis, nomeados no padrão BEM
+   (bloco__elemento--modificador). Alinhamentos internos usam Flexbox.
+   ========================================================================== */
+
+/* ---------- Link "pular para o conteúdo" (acessibilidade) -------------- */
+.pular-conteudo {
+  position: absolute;
+  top: var(--esp-2);
+  left: -999px;
+  z-index: 100;
+  padding: var(--esp-2) var(--esp-4);
+  border-radius: var(--raio-medio);
+  background: var(--cor-marca-escura);
+  color: var(--cor-neutro-0);
+}
+
+.pular-conteudo:focus {
+  left: var(--esp-2);
+  color: var(--cor-neutro-0);
+}
+
+/* ---------- Cabeçalho -------------------------------------------------- */
+.cabecalho {
+  background: var(--cor-marca);
+  color: var(--cor-neutro-0);
+  box-shadow: var(--sombra-2);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding-block: var(--esp-3);
+}
+
+.cabecalho :focus-visible {
+  outline-color: var(--cor-neutro-0);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  font-size: var(--fs-media);
+  font-weight: var(--peso-forte);
+  color: var(--cor-neutro-0);
+  text-decoration: none;
+}
+
+.marca:hover {
+  color: var(--cor-neutro-0);
+}
+
+/* ---------- Menu de navegação ----------------------------------------- */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__link {
+  display: flex;
+  align-items: center;
+  min-height: var(--alvo-toque);
+  padding-inline: var(--esp-4);
+  border-radius: var(--raio-medio);
+  color: var(--cor-neutro-0);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+  transition: background-color var(--transicao);
+}
+
+.menu__link:hover,
+.menu__link[aria-current="page"] {
+  background: var(--cor-marca-escura);
+  color: var(--cor-neutro-0);
+}
+
+/* ---------- Botões ----------------------------------------------------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2) var(--esp-5);
+  border: 2px solid var(--cor-marca);
+  border-radius: var(--raio-medio);
+  background: var(--cor-marca);
+  color: var(--cor-neutro-0);
+  font: inherit;
+  font-weight: var(--peso-forte);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), border-color var(--transicao);
+}
+
+.botao:hover {
+  background: var(--cor-marca-escura);
+  border-color: var(--cor-marca-escura);
+  color: var(--cor-neutro-0);
+}
+
+.botao--secundario {
+  background: transparent;
+  color: var(--cor-marca);
+}
+
+.botao--secundario:hover {
+  background: var(--cor-primaria-100);
+  color: var(--cor-marca-escura);
+}
+
+.grupo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+/* ---------- Destaque (hero da página inicial) -------------------------- */
+.destaque {
+  padding-block: var(--esp-7);
+  background: linear-gradient(180deg, var(--cor-primaria-100), var(--cor-fundo));
+}
+
+.destaque .grid {
+  align-items: center;
+}
+
+.destaque__texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-4);
+}
+
+.destaque__texto p {
+  margin: 0;
+  font-size: var(--fs-media);
+  color: var(--cor-texto-suave);
+}
+
+.destaque__figura {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-2);
+}
+
+.destaque__figura img {
+  width: 100%;
+}
+
+/* ---------- Introdução de páginas internas ----------------------------- */
+.introducao {
+  padding-block: var(--esp-7) var(--esp-5);
+}
+
+.introducao p {
+  max-width: var(--largura-texto);
+  font-size: var(--fs-media);
+  color: var(--cor-texto-suave);
+}
+
+/* ---------- Cartão ----------------------------------------------------- */
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  height: 100%;
+  padding: var(--esp-5);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-1);
+}
+
+.cartao > * {
+  margin: 0;
+}
+
+.cartao__acao {
+  margin-top: auto;      /* empurra a ação para o rodapé do cartão */
+  align-self: flex-start;
+}
+
+/* ---------- Indicadores de impacto ------------------------------------ */
+.indicadores {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.indicador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-1);
+  height: 100%;
+  padding: var(--esp-5);
+  border-top: 4px solid var(--cor-destaque);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-1);
+  text-align: center;
+}
+
+.indicador__numero {
+  font-size: var(--fs-display);
+  font-weight: var(--peso-forte);
+  line-height: 1;
+  color: var(--cor-marca);
+}
+
+/* ---------- Sumário (links internos em formato de "pílula") ----------- */
+.sumario__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sumario__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--alvo-toque);
+  padding-inline: var(--esp-4);
+  border: 1px solid var(--cor-marca);
+  border-radius: var(--raio-pilula);
+  background: var(--cor-superficie);
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+  transition: background-color var(--transicao);
+}
+
+.sumario__link:hover {
+  background: var(--cor-primaria-100);
+}
+
+/* ---------- Projeto (cartão com imagem) ------------------------------- */
+.projeto {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-1);
+  scroll-margin-top: var(--esp-5);
+}
+
+.projeto__figura {
+  margin: 0;
+  background: var(--cor-primaria-100);
+}
+
+.projeto__figura img {
+  width: 100%;
+}
+
+.projeto__legenda {
+  padding: var(--esp-2) var(--esp-5);
+  font-size: var(--fs-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.projeto__corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--esp-5);
+}
+
+.projeto__cabecalho h3 {
+  margin-bottom: var(--esp-1);
+}
+
+.etiqueta {
+  display: inline-block;
+  margin: 0 0 var(--esp-4);
+  padding: var(--esp-1) var(--esp-3);
+  border-radius: var(--raio-pilula);
+  background: var(--cor-secundaria-100);
+  color: var(--cor-secundaria-700);
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-medio);
+}
+
+/* ---------- Listas de voluntariado ------------------------------------ */
+.perfis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+}
+
+.perfis dt {
+  font-weight: var(--peso-forte);
+}
+
+.perfis dd {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+.etapas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  padding: 0;
+  list-style: none;
+  counter-reset: etapa;
+}
+
+.etapas li {
+  position: relative;
+  min-height: 2rem;
+  padding-left: 2.75rem; /* 2rem do marcador + esp-3; literal porque o validador W3C não aceita var() dentro de calc() */
+  counter-increment: etapa;
+}
+
+.etapas li::before {
+  content: counter(etapa);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--cor-marca);
+  color: var(--cor-neutro-0);
+  font-weight: var(--peso-forte);
+}
+
+/* ---------- Campanha de doação ---------------------------------------- */
+.campanha {
+  border-left: 4px solid var(--cor-destaque);
+}
+
+.campanha__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--esp-2);
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-medio);
+}
+
+.campanha progress {
+  width: 100%;
+  height: 0.75rem;
+  accent-color: var(--cor-marca);
+}
+
+/* ---------- Formulário ------------------------------------------------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-5);
+}
+
+.formulario__grupo {
+  margin: 0;
+  padding: var(--esp-5);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.formulario__legenda {
+  padding-inline: var(--esp-2);
+  font-size: var(--fs-media);
+  font-weight: var(--peso-forte);
+  color: var(--cor-marca-escura);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+}
+
+.campo__rotulo {
+  font-weight: var(--peso-medio);
+}
+
+.campo__entrada {
+  width: 100%;
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2) var(--esp-3);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.campo__entrada:focus-visible {
+  border-color: var(--cor-marca);
+  outline-offset: 0;
+}
+
+/* Feedback de validação só depois que o usuário interage com o campo */
+.campo__entrada:user-invalid {
+  border-color: var(--cor-erro);
+  box-shadow: 0 0 0 1px var(--cor-erro);
+}
+
+.campo__entrada:user-valid {
+  border-color: var(--cor-sucesso);
+}
+
+.campo__ajuda {
+  margin: 0;
+  font-size: var(--fs-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2) var(--esp-5);
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: var(--alvo-toque);
+}
+
+.opcao input {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--cor-marca);
+}
+
+.opcao--consentimento {
+  align-items: flex-start;
+}
+
+.opcao--consentimento input {
+  margin-top: var(--esp-1);
+  flex-shrink: 0;
+}
+
+.obrigatorio {
+  color: var(--cor-erro);
+}
+
+/* ---------- Painel lateral do cadastro -------------------------------- */
+.painel {
+  height: auto;           /* não estica: acompanha a rolagem (sticky) */
+  position: sticky;
+  top: var(--esp-5);
+  background: var(--cor-primaria-100);
+  border-color: transparent;
+}
+
+.painel__titulo {
+  font-size: var(--fs-grande);
+}
+
+.painel ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  padding-left: var(--esp-5);
+}
+
+/* ---------- Aviso e rodapé -------------------------------------------- */
+.aviso {
+  padding-block: var(--esp-4);
+  background: var(--cor-secundaria-100);
+  font-size: var(--fs-pequeno);
+  color: var(--cor-secundaria-700);
+}
+
+.aviso p {
+  margin: 0;
+}
+
+.rodape {
+  padding-block: var(--esp-6);
+  background: var(--cor-marca-escura);
+  color: var(--cor-neutro-0);
+}
+
+.rodape__conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-4);
+}
+
+.rodape address {
+  font-style: normal;
+}
+
+.rodape p {
+  margin: 0;
+}
+
+.rodape a {
+  color: var(--cor-neutro-0);
+}
+
+.rodape :focus-visible {
+  outline-color: var(--cor-neutro-0);
+}

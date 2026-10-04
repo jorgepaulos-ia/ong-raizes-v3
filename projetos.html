@@ -5,161 +5,204 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Conheça os projetos sociais do Instituto Raízes do Amanhã: reforço escolar, clube de leitura e oficina de tecnologia.">
   <title>Projetos | Instituto Raízes do Amanhã</title>
-  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 </head>
-<body>
+<body class="pagina">
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
 
   <header class="cabecalho">
-    <a class="marca" href="index.html">
-      <img src="img/logo.svg" alt="" width="48" height="48">
-      <span>Instituto Raízes do Amanhã</span>
-    </a>
-    <nav aria-label="Navegação principal">
-      <ul class="menu">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="projetos.html" aria-current="page">Projetos</a></li>
-        <li><a href="cadastro.html">Seja voluntário</a></li>
-      </ul>
-    </nav>
+    <div class="container cabecalho__conteudo">
+      <a class="marca" href="index.html">
+        <img src="img/logo.svg" alt="" width="48" height="48">
+        <span>Instituto Raízes do Amanhã</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <ul class="menu">
+          <li><a class="menu__link" href="index.html">Início</a></li>
+          <li><a class="menu__link" href="projetos.html" aria-current="page">Projetos</a></li>
+          <li><a class="menu__link" href="cadastro.html">Seja voluntário</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main id="conteudo">
-    <h1>Nossos projetos sociais</h1>
-    <p class="introducao">Três frentes de atuação, todas gratuitas e realizadas no contraturno escolar.</p>
-
-    <nav class="sumario" aria-label="Sumário dos projetos">
-      <ul>
-        <li><a href="#reforco">Reforço Escolar</a></li>
-        <li><a href="#leitura">Clube de Leitura</a></li>
-        <li><a href="#tecnologia">Oficina de Tecnologia</a></li>
-        <li><a href="#voluntariado">Como ser voluntário</a></li>
-        <li><a href="#doacoes">Campanhas de doação</a></li>
-      </ul>
-    </nav>
-
-    <section aria-labelledby="titulo-em-andamento">
-      <h2 id="titulo-em-andamento">Projetos em andamento</h2>
-
-      <article id="reforco" class="projeto">
-        <header>
-          <h3>Reforço Escolar</h3>
-          <p class="publico">Público: 6 a 14 anos</p>
-        </header>
-        <figure>
-          <img src="img/reforco.svg" alt="Ilustração de um caderno aberto com contas de matemática e um lápis" width="320" height="200">
-          <figcaption>Aulas em grupos de até oito estudantes.</figcaption>
-        </figure>
-        <p>Acompanhamento em português e matemática, com diagnóstico individual no início de cada semestre.</p>
-        <h4>Resultados</h4>
-        <ul>
-          <li>180 estudantes atendidos em 2025</li>
-          <li>Melhora média de 1,8 ponto nas notas bimestrais</li>
+    <div class="introducao container">
+      <h1>Nossos projetos sociais</h1>
+      <p>Três frentes de atuação, todas gratuitas e realizadas no contraturno escolar.</p>
+      <nav class="sumario" aria-label="Sumário dos projetos">
+        <ul class="sumario__lista">
+          <li><a class="sumario__link" href="#reforco">Reforço Escolar</a></li>
+          <li><a class="sumario__link" href="#leitura">Clube de Leitura</a></li>
+          <li><a class="sumario__link" href="#tecnologia">Oficina de Tecnologia</a></li>
+          <li><a class="sumario__link" href="#voluntariado">Como ser voluntário</a></li>
+          <li><a class="sumario__link" href="#doacoes">Campanhas de doação</a></li>
         </ul>
-      </article>
+      </nav>
+    </div>
 
-      <article id="leitura" class="projeto">
-        <header>
-          <h3>Clube de Leitura</h3>
-          <p class="publico">Público: 8 a 17 anos</p>
-        </header>
-        <figure>
-          <img src="img/leitura.svg" alt="Ilustração de uma pilha de livros coloridos" width="320" height="200">
-          <figcaption>Acervo de 2.400 livros doados pela comunidade.</figcaption>
-        </figure>
-        <p>Encontros semanais de leitura compartilhada e produção de textos, com rodas de conversa mediadas por voluntários.</p>
-        <h4>Resultados</h4>
-        <ul>
-          <li>90 participantes por semestre</li>
-          <li>Mais de 1.500 empréstimos de livros por ano</li>
-        </ul>
-      </article>
+    <section class="secao" aria-labelledby="titulo-em-andamento">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <h2 id="titulo-em-andamento">Projetos em andamento</h2>
+        </div>
+        <div class="grid">
+          <article id="reforco" class="projeto col-12 col-md-6 col-lg-4">
+            <figure class="projeto__figura">
+              <img src="img/reforco.svg" alt="Ilustração de um caderno aberto com contas de matemática e um lápis" width="320" height="200">
+              <figcaption class="projeto__legenda">Aulas em grupos de até oito estudantes.</figcaption>
+            </figure>
+            <div class="projeto__corpo">
+              <header class="projeto__cabecalho">
+                <h3>Reforço Escolar</h3>
+                <p class="etiqueta">Público: 6 a 14 anos</p>
+              </header>
+              <p>Acompanhamento em português e matemática, com diagnóstico individual no início de cada semestre.</p>
+              <h4>Resultados</h4>
+              <ul>
+                <li>180 estudantes atendidos em 2025</li>
+                <li>Melhora média de 1,8 ponto nas notas bimestrais</li>
+              </ul>
+            </div>
+          </article>
 
-      <article id="tecnologia" class="projeto">
-        <header>
-          <h3>Oficina de Tecnologia</h3>
-          <p class="publico">Público: 12 a 17 anos</p>
-        </header>
-        <figure>
-          <img src="img/tecnologia.svg" alt="Ilustração de um notebook exibindo linhas de código" width="320" height="200">
-          <figcaption>Laboratório com 15 computadores doados.</figcaption>
-        </figure>
-        <p>Introdução à informática, lógica de programação e criação de páginas web, preparando jovens para o primeiro emprego.</p>
-        <h4>Resultados</h4>
-        <ul>
-          <li>50 jovens formados por ano</li>
-          <li>12 encaminhados a programas de jovem aprendiz em 2025</li>
-        </ul>
-      </article>
+          <article id="leitura" class="projeto col-12 col-md-6 col-lg-4">
+            <figure class="projeto__figura">
+              <img src="img/leitura.svg" alt="Ilustração de uma pilha de livros coloridos" width="320" height="200">
+              <figcaption class="projeto__legenda">Acervo de 2.400 livros doados pela comunidade.</figcaption>
+            </figure>
+            <div class="projeto__corpo">
+              <header class="projeto__cabecalho">
+                <h3>Clube de Leitura</h3>
+                <p class="etiqueta">Público: 8 a 17 anos</p>
+              </header>
+              <p>Encontros semanais de leitura compartilhada e produção de textos, com rodas de conversa mediadas por voluntários.</p>
+              <h4>Resultados</h4>
+              <ul>
+                <li>90 participantes por semestre</li>
+                <li>Mais de 1.500 empréstimos de livros por ano</li>
+              </ul>
+            </div>
+          </article>
+
+          <article id="tecnologia" class="projeto col-12 col-md-6 col-lg-4">
+            <figure class="projeto__figura">
+              <img src="img/tecnologia.svg" alt="Ilustração de um notebook exibindo linhas de código" width="320" height="200">
+              <figcaption class="projeto__legenda">Laboratório com 15 computadores doados.</figcaption>
+            </figure>
+            <div class="projeto__corpo">
+              <header class="projeto__cabecalho">
+                <h3>Oficina de Tecnologia</h3>
+                <p class="etiqueta">Público: 12 a 17 anos</p>
+              </header>
+              <p>Introdução à informática, lógica de programação e criação de páginas web, preparando jovens para o primeiro emprego.</p>
+              <h4>Resultados</h4>
+              <ul>
+                <li>50 jovens formados por ano</li>
+                <li>12 encaminhados a programas de jovem aprendiz em 2025</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="voluntariado" aria-labelledby="titulo-voluntariado">
-      <h2 id="titulo-voluntariado">Como ser voluntário</h2>
-      <p>Não é preciso ser professor. Buscamos pessoas maiores de 18 anos com disponibilidade mínima de duas horas por semana.</p>
-
-      <h3>Perfis de voluntariado</h3>
-      <dl class="perfis">
-        <dt>Educador</dt>
-        <dd>Conduz aulas de reforço ou encontros do clube de leitura, com material preparado pela equipe pedagógica.</dd>
-        <dt>Mentor de tecnologia</dt>
-        <dd>Apoia os jovens da oficina em lógica de programação e criação de páginas web.</dd>
-        <dt>Apoio administrativo</dt>
-        <dd>Ajuda na organização de eventos, na comunicação e na prestação de contas.</dd>
-      </dl>
-
-      <h3>Etapas para começar</h3>
-      <ol class="etapas">
-        <li>Preencha o <a href="cadastro.html">formulário de cadastro</a>.</li>
-        <li>Participe de uma conversa de acolhimento com nossa equipe.</li>
-        <li>Faça a formação inicial de quatro horas sobre a metodologia da ONG.</li>
-        <li>Comece a atuar no projeto escolhido.</li>
-      </ol>
+    <section id="voluntariado" class="secao secao--alternada" aria-labelledby="titulo-voluntariado">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <h2 id="titulo-voluntariado">Como ser voluntário</h2>
+          <p>Não é preciso ser professor. Buscamos pessoas maiores de 18 anos com disponibilidade mínima de duas horas por semana.</p>
+        </div>
+        <div class="grid">
+          <div class="col-12 col-md-6">
+            <h3>Perfis de voluntariado</h3>
+            <dl class="perfis">
+              <div>
+                <dt>Educador</dt>
+                <dd>Conduz aulas de reforço ou encontros do clube de leitura, com material preparado pela equipe pedagógica.</dd>
+              </div>
+              <div>
+                <dt>Mentor de tecnologia</dt>
+                <dd>Apoia os jovens da oficina em lógica de programação e criação de páginas web.</dd>
+              </div>
+              <div>
+                <dt>Apoio administrativo</dt>
+                <dd>Ajuda na organização de eventos, na comunicação e na prestação de contas.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="col-12 col-md-6">
+            <h3>Etapas para começar</h3>
+            <ol class="etapas">
+              <li>Preencha o <a href="cadastro.html">formulário de cadastro</a>.</li>
+              <li>Participe de uma conversa de acolhimento com nossa equipe.</li>
+              <li>Faça a formação inicial de quatro horas sobre a metodologia da ONG.</li>
+              <li>Comece a atuar no projeto escolhido.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="doacoes" aria-labelledby="titulo-doacoes">
-      <h2 id="titulo-doacoes">Campanhas de doação</h2>
-      <p>Toda doação é destinada a uma campanha com meta e prazo definidos, e o resultado é publicado ao final.</p>
+    <section id="doacoes" class="secao" aria-labelledby="titulo-doacoes">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <h2 id="titulo-doacoes">Campanhas de doação</h2>
+          <p>Toda doação é destinada a uma campanha com meta e prazo definidos, e o resultado é publicado ao final.</p>
+        </div>
+        <div class="grid">
+          <article class="cartao campanha col-12 col-md-6">
+            <h3>Material escolar 2027</h3>
+            <p>Kits completos de material para os 320 estudantes no início do ano letivo.</p>
+            <p class="campanha__meta"><label for="meta-material">Arrecadado: R$ 11.200 de R$ 16.000</label><span aria-hidden="true">70%</span></p>
+            <progress id="meta-material" max="16000" value="11200">70%</progress>
+          </article>
 
-      <article class="campanha">
-        <h3>Material escolar 2027</h3>
-        <p>Kits completos de material para os 320 estudantes no início do ano letivo.</p>
-        <p><label for="meta-material">Arrecadado: R$ 11.200 de R$ 16.000</label></p>
-        <progress id="meta-material" max="16000" value="11200">70%</progress>
-      </article>
+          <article class="cartao campanha col-12 col-md-6">
+            <h3>Novos computadores para a oficina</h3>
+            <p>Ampliação do laboratório de 15 para 25 computadores, aceitando equipamentos usados em bom estado.</p>
+            <p class="campanha__meta"><label for="meta-computadores">Arrecadado: 4 de 10 computadores</label><span aria-hidden="true">40%</span></p>
+            <progress id="meta-computadores" max="10" value="4">40%</progress>
+          </article>
 
-      <article class="campanha">
-        <h3>Novos computadores para a oficina</h3>
-        <p>Ampliação do laboratório de 15 para 25 computadores, aceitando equipamentos usados em bom estado.</p>
-        <p><label for="meta-computadores">Arrecadado: 4 de 10 computadores</label></p>
-        <progress id="meta-computadores" max="10" value="4">40%</progress>
-      </article>
+          <div class="col-12 col-md-6">
+            <h3>Formas de doar</h3>
+            <ul>
+              <li><strong>Doação mensal:</strong> a partir de R$ 30, com débito automático.</li>
+              <li><strong>Doação única:</strong> qualquer valor, destinado à campanha de sua escolha.</li>
+              <li><strong>Doação de itens:</strong> livros, material escolar e computadores.</li>
+            </ul>
+          </div>
 
-      <h3>Formas de doar</h3>
-      <ul>
-        <li><strong>Doação mensal:</strong> a partir de R$ 30, com débito automático.</li>
-        <li><strong>Doação única:</strong> qualquer valor, destinado à campanha de sua escolha.</li>
-        <li><strong>Doação de itens:</strong> livros, material escolar e computadores.</li>
-      </ul>
-
-      <h3>Transparência</h3>
-      <p>Publicamos anualmente o relatório de atividades e o balanço financeiro, auditados por empresa independente.</p>
-
-      <p><a class="botao" href="cadastro.html">Cadastre-se como voluntário ou doador</a></p>
+          <div class="col-12 col-md-6">
+            <h3>Transparência</h3>
+            <p>Publicamos anualmente o relatório de atividades e o balanço financeiro, auditados por empresa independente.</p>
+            <a class="botao" href="cadastro.html">Cadastre-se como voluntário ou doador</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <aside class="aviso" aria-label="Aviso sobre o projeto">
-    <p>Projeto acadêmico: organização fictícia criada para a disciplina de Desenvolvimento Front-end.</p>
+    <div class="container">
+      <p>Projeto acadêmico: organização fictícia criada para a disciplina de Desenvolvimento Front-end.</p>
+    </div>
   </aside>
 
   <footer class="rodape">
-    <address>
-      Instituto Raízes do Amanhã<br>
-      Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
-      <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
-    </address>
-    <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados.</small></p>
+    <div class="container rodape__conteudo">
+      <address>
+        Instituto Raízes do Amanhã<br>
+        Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
+        <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
+      </address>
+      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados.</small></p>
+    </div>
   </footer>
 </body>
 </html>
