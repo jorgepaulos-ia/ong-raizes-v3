@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Cadastre-se como voluntário ou doador do Instituto Raízes do Amanhã.">
   <title>Cadastro | Instituto Raízes do Amanhã</title>
+  <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/componentes.css">
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <script src="js/menu.js" defer></script>
   <script src="js/mascaras.js" defer></script>
 </head>
 <body class="pagina">
@@ -21,11 +23,27 @@
         <img src="img/logo.svg" alt="" width="48" height="48">
         <span>Instituto Raízes do Amanhã</span>
       </a>
-      <nav aria-label="Navegação principal">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="menu-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="menu-toggle__texto">Menu</span>
+      </button>
+      <nav class="navegacao" id="menu-principal" aria-label="Navegação principal">
         <ul class="menu">
-          <li><a class="menu__link" href="index.html">Início</a></li>
-          <li><a class="menu__link" href="projetos.html">Projetos</a></li>
-          <li><a class="menu__link" href="cadastro.html" aria-current="page">Seja voluntário</a></li>
+          <li class="menu__item"><a class="menu__link" href="index.html">Início</a></li>
+          <li class="menu__item menu__item--submenu">
+            <a class="menu__link" href="projetos.html">Projetos</a>
+            <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-projetos">
+              <span class="visualmente-oculto">Abrir submenu de Projetos</span>
+            </button>
+            <ul class="submenu" id="submenu-projetos">
+              <li><a class="submenu__link" href="projetos.html#reforco">Reforço Escolar</a></li>
+              <li><a class="submenu__link" href="projetos.html#leitura">Clube de Leitura</a></li>
+              <li><a class="submenu__link" href="projetos.html#tecnologia">Oficina de Tecnologia</a></li>
+              <li><a class="submenu__link" href="projetos.html#voluntariado">Como ser voluntário</a></li>
+              <li><a class="submenu__link" href="projetos.html#doacoes">Campanhas de doação</a></li>
+            </ul>
+          </li>
+          <li class="menu__item"><a class="menu__link" href="cadastro.html" aria-current="page">Seja voluntário</a></li>
         </ul>
       </nav>
     </div>

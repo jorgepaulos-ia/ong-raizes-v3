@@ -41,27 +41,132 @@
 }
 
 .marca {
+  flex: 1 1 0;        /* encolhe e deixa o nome quebrar linha, abrindo espaço para o botão Menu */
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: var(--esp-3);
-  font-size: var(--fs-media);
+  font-size: var(--fs-base);
   font-weight: var(--peso-forte);
+  line-height: var(--altura-linha-titulo);
   color: var(--cor-neutro-0);
   text-decoration: none;
+}
+
+.marca img {
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .marca {
+    font-size: var(--fs-media);
+  }
 }
 
 .marca:hover {
   color: var(--cor-neutro-0);
 }
 
-/* ---------- Menu de navegação ----------------------------------------- */
+/* ---------- Navegação principal ---------------------------------------
+   Mobile-first: abaixo de 768px o menu fica recolhido atrás do botão
+   hambúrguer. A partir de 768px (md) vira a barra horizontal com dropdown.
+   A classe .js no <html> garante que, sem JavaScript, o menu nunca fique
+   escondido (ele simplesmente aparece aberto). */
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Botão hambúrguer */
+.menu-toggle {
+  flex-shrink: 0;
+  display: none;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: var(--alvo-toque);
+  padding-inline: var(--esp-3);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--raio-medio);
+  background: transparent;
+  color: var(--cor-neutro-0);
+  font: inherit;
+  font-weight: var(--peso-medio);
+  cursor: pointer;
+}
+
+.js .menu-toggle {
+  display: inline-flex;
+}
+
+.menu-toggle__icone {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.25rem;
+  height: 0.875rem;
+}
+
+.menu-toggle__icone span {
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--transicao), opacity var(--transicao);
+}
+
+/* As três barras viram um "X" quando o menu está aberto */
+.menu-toggle[aria-expanded="true"] .menu-toggle__icone span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icone span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icone span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Painel do menu no celular: ocupa a largura toda, abaixo da marca */
+.navegacao {
+  flex-basis: 100%;
+}
+
+.js .navegacao {
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: max-height 250ms ease-in-out, visibility 0s linear 250ms;
+}
+
+.js .navegacao--aberta {
+  max-height: 40rem;
+  visibility: visible;
+  transition: max-height 250ms ease-in-out, visibility 0s;
+}
+
 .menu {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--esp-1);
   margin: 0;
-  padding: 0;
+  padding: var(--esp-2) 0;
   list-style: none;
+}
+
+.menu__item--submenu {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.menu__item--submenu > .menu__link {
+  flex: 1;
 }
 
 .menu__link {
@@ -80,6 +185,136 @@
 .menu__link[aria-current="page"] {
   background: var(--cor-marca-escura);
   color: var(--cor-neutro-0);
+}
+
+/* Seta que abre o submenu: desenhada com bordas, gira ao abrir */
+.submenu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--alvo-toque);
+  height: var(--alvo-toque);
+  border: 0;
+  border-radius: var(--raio-medio);
+  background: transparent;
+  color: var(--cor-neutro-0);
+  cursor: pointer;
+}
+
+.submenu-toggle::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--transicao);
+}
+
+.submenu-toggle:hover {
+  background: var(--cor-marca-escura);
+}
+
+.submenu-toggle[aria-expanded="true"]::before {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+/* Submenu no celular: lista recuada, escondida até tocar na seta */
+.submenu {
+  display: none;
+  flex-basis: 100%;
+  margin: 0;
+  padding: 0 0 var(--esp-2) var(--esp-5);
+  list-style: none;
+}
+
+.submenu-toggle[aria-expanded="true"] + .submenu {
+  display: block;
+}
+
+.submenu__link {
+  display: flex;
+  align-items: center;
+  min-height: var(--alvo-toque);
+  padding-inline: var(--esp-4);
+  border-radius: var(--raio-medio);
+  color: var(--cor-neutro-0);
+  text-decoration: none;
+}
+
+.submenu__link:hover {
+  background: var(--cor-marca-escura);
+  color: var(--cor-neutro-0);
+}
+
+/* md (768px+): barra horizontal e dropdown flutuante */
+@media (min-width: 768px) {
+  .js .menu-toggle {
+    display: none;
+  }
+
+  .navegacao,
+  .js .navegacao {
+    flex-basis: auto;
+    max-height: none;
+    overflow: visible;
+    visibility: visible;
+  }
+
+  .menu {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+
+  .menu__item--submenu {
+    flex-wrap: nowrap;
+  }
+
+  .submenu-toggle {
+    width: 2rem;
+    margin-left: calc(-1 * var(--esp-2));
+  }
+
+  .submenu {
+    position: absolute;
+    top: 100%;  /* colado ao item: o mouse não "cai" no vão ao descer */
+    left: 0;
+    z-index: 50;
+    display: block;
+    min-width: 15rem;
+    padding: var(--esp-2);
+    border-radius: var(--raio-medio);
+    background: var(--cor-superficie);
+    box-shadow: var(--sombra-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition: opacity var(--transicao), transform var(--transicao), visibility 0s linear 150ms;
+  }
+
+  /* Abre com o mouse (:hover), com o teclado (:focus-within) ou pelo clique na seta */
+  .menu__item--submenu:hover .submenu,
+  .menu__item--submenu:focus-within .submenu,
+  .submenu-toggle[aria-expanded="true"] + .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity var(--transicao), transform var(--transicao), visibility 0s;
+  }
+
+  .submenu__link {
+    color: var(--cor-texto);
+  }
+
+  .submenu__link:hover {
+    background: var(--cor-primaria-100);
+    color: var(--cor-marca-escura);
+  }
+
+  .submenu :focus-visible {
+    outline-color: var(--cor-foco);
+  }
 }
 
 /* ---------- Botões ----------------------------------------------------- */
