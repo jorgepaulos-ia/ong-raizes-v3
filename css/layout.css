@@ -1,8 +1,8 @@
 /* ==========================================================================
    LAYOUT: estrutura macro com CSS Grid de 12 colunas
    Abordagem mobile-first: sem classe de breakpoint, o elemento ocupa as
-   12 colunas; os sufixos -sm, -md, -lg e -xl valem a partir da largura.
-     sm  >= 576px | md  >= 768px | lg  >= 1024px | xl  >= 1280px
+   12 colunas; os sufixos -sm, -md, -lg, -xl e -xxl valem a partir da largura.
+     sm  >= 576px | md  >= 768px | lg  >= 1024px | xl  >= 1280px | xxl >= 1536px
    ========================================================================== */
 
 .container {
@@ -73,6 +73,19 @@
 
   .col-xl-3 { grid-column: span 3; }
   .col-xl-4 { grid-column: span 4; }
+  .col-xl-5 { grid-column: span 5; }
+  .col-xl-7 { grid-column: span 7; }
+}
+
+/* xxl: monitores panorâmicos; o conteúdo cresce e os espaços também */
+@media (min-width: 1536px) {
+  :root {
+    --largura-max: 1400px;
+    --gutter: var(--esp-6);
+  }
+
+  .col-xxl-3 { grid-column: span 3; }
+  .col-xxl-4 { grid-column: span 4; }
 }
 
 /* Estrutura geral da página: rodapé sempre no fim, mesmo com pouco conteúdo */
