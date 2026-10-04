@@ -541,15 +541,64 @@
   margin-bottom: var(--esp-1);
 }
 
-.etiqueta {
-  display: inline-block;
-  margin: 0 0 var(--esp-4);
+/* ---------- Badges (etiquetas de categoria e status) ------------------
+   Uso: <span class="badge badge--sucesso">Inscrições abertas</span>
+   Variantes usam só cores do design system; todas com contraste >= 4.5:1. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
   padding: var(--esp-1) var(--esp-3);
   border-radius: var(--raio-pilula);
-  background: var(--cor-secundaria-100);
-  color: var(--cor-secundaria-700);
   font-size: var(--fs-pequeno);
   font-weight: var(--peso-medio);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.badge--neutra {
+  background: var(--cor-fundo);
+  color: var(--cor-texto-suave);
+  box-shadow: inset 0 0 0 1px var(--cor-borda);
+}
+
+.badge--marca {
+  background: var(--cor-primaria-100);
+  color: var(--cor-marca-escura);
+}
+
+.badge--destaque {
+  background: var(--cor-secundaria-100);
+  color: var(--cor-secundaria-700);
+}
+
+.badge--sucesso {
+  background: var(--cor-sucesso-100);
+  color: var(--cor-sucesso);
+}
+
+.badge--erro {
+  background: var(--cor-erro-100);
+  color: var(--cor-erro);
+}
+
+/* Variante com bolinha de status antes do texto */
+.badge--status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.lista-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-4);
+  padding: 0;
+  list-style: none;
 }
 
 /* ---------- Listas de voluntariado ------------------------------------ */
@@ -801,9 +850,208 @@ input[type="date"].campo__entrada:is(:user-valid, :user-invalid) {
   background: var(--cor-erro);
 }
 
+.alerta--info {
+  border-color: var(--cor-marca);
+  background: var(--cor-primaria-100);
+  color: var(--cor-marca-escura);
+}
+
+.alerta--info::before {
+  content: "i";
+  background: var(--cor-marca);
+}
+
+.alerta--aviso {
+  border-color: var(--cor-secundaria-500);
+  background: var(--cor-secundaria-100);
+  color: var(--cor-secundaria-700);
+}
+
+.alerta--aviso::before {
+  content: "!";
+  background: var(--cor-secundaria-700);
+}
+
 .alerta:focus {
   outline: 3px solid var(--cor-foco);
   outline-offset: 2px;
+}
+
+/* ---------- Modal (elemento nativo <dialog>) --------------------------
+   O <dialog> aberto com showModal() já prende o foco dentro dele, fecha
+   com Esc e devolve o foco ao botão que o abriu. O CSS cuida da forma,
+   do fundo escurecido (::backdrop) e da animação de entrada. */
+.modal {
+  /* valores literais (2 x esp-4 e 2 x esp-6): o validador W3C não aceita var() dentro de calc() */
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100vh - 4rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  box-shadow: 0 20px 48px rgba(29, 37, 34, 0.25);
+}
+
+.modal[open] {
+  animation: modal-entrada 200ms ease-out;
+}
+
+.modal::backdrop {
+  background: rgba(20, 81, 58, 0.55);
+}
+
+@keyframes modal-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.modal__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.modal__cabecalho h2 {
+  margin: 0;
+  font-size: var(--fs-grande);
+}
+
+.modal__corpo {
+  padding: var(--esp-5);
+}
+
+.modal__corpo > :last-child {
+  margin-bottom: 0;
+}
+
+.modal__rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--esp-3);
+  padding: var(--esp-4) var(--esp-5);
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-fundo);
+}
+
+.botao-fechar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--alvo-toque);
+  height: var(--alvo-toque);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cor-texto-suave);
+  font-size: var(--fs-grande);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transicao);
+}
+
+.botao-fechar:hover {
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.link-botao {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cor-marca);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+/* ---------- Toast (notificação não obstrutiva) -----------------------
+   Fica no canto inferior, não bloqueia a página e some sozinho. */
+.toast {
+  position: fixed;
+  right: var(--esp-4);
+  bottom: var(--esp-4);
+  left: var(--esp-4);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  max-width: 24rem;
+  margin-left: auto;
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--raio-medio);
+  background: var(--cor-neutro-900);
+  color: var(--cor-neutro-0);
+  box-shadow: var(--sombra-2);
+  font-weight: var(--peso-medio);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1rem);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+}
+
+.toast--visivel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s;
+}
+
+.toast::before {
+  content: "✓";
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--cor-sucesso);
+  font-weight: var(--peso-forte);
+}
+
+.toast--erro::before {
+  content: "!";
+  background: var(--cor-erro);
+}
+
+/* ---------- Guia de componentes (componentes.html) ------------------- */
+.guia + .guia {
+  padding-top: 0;
+}
+
+.guia__demo {
+  padding: var(--esp-5);
+  border: 1px dashed var(--cor-borda-campo);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.guia__demo > :last-child,
+.guia__demo .lista-badges:last-child {
+  margin-bottom: 0;
+}
+
+.guia__codigo {
+  margin: 0;
+  overflow-x: auto;
+  padding: var(--esp-4);
+  border-radius: var(--raio-medio);
+  background: var(--cor-neutro-900);
+  color: var(--cor-primaria-100);
+  font-size: var(--fs-pequeno);
+  line-height: 1.5;
 }
 
 /* ---------- Painel lateral do cadastro -------------------------------- */

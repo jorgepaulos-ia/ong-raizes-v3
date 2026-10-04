@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/componentes.css">
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
   <script src="js/menu.js" defer></script>
+  <script src="js/componentes.js" defer></script>
 </head>
 <body class="pagina">
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
@@ -77,7 +78,10 @@
             <div class="projeto__corpo">
               <header class="projeto__cabecalho">
                 <h3>Reforço Escolar</h3>
-                <p class="etiqueta">Público: 6 a 14 anos</p>
+                <ul class="lista-badges" aria-label="Situação do projeto">
+                  <li><span class="badge badge--marca">Público: 6 a 14 anos</span></li>
+                  <li><span class="badge badge--sucesso badge--status">Inscrições abertas</span></li>
+                </ul>
               </header>
               <p>Acompanhamento em português e matemática, com diagnóstico individual no início de cada semestre.</p>
               <h4>Resultados</h4>
@@ -96,7 +100,10 @@
             <div class="projeto__corpo">
               <header class="projeto__cabecalho">
                 <h3>Clube de Leitura</h3>
-                <p class="etiqueta">Público: 8 a 17 anos</p>
+                <ul class="lista-badges" aria-label="Situação do projeto">
+                  <li><span class="badge badge--marca">Público: 8 a 17 anos</span></li>
+                  <li><span class="badge badge--destaque badge--status">Vagas limitadas</span></li>
+                </ul>
               </header>
               <p>Encontros semanais de leitura compartilhada e produção de textos, com rodas de conversa mediadas por voluntários.</p>
               <h4>Resultados</h4>
@@ -115,7 +122,10 @@
             <div class="projeto__corpo">
               <header class="projeto__cabecalho">
                 <h3>Oficina de Tecnologia</h3>
-                <p class="etiqueta">Público: 12 a 17 anos</p>
+                <ul class="lista-badges" aria-label="Situação do projeto">
+                  <li><span class="badge badge--marca">Público: 12 a 17 anos</span></li>
+                  <li><span class="badge badge--neutra badge--status">Lista de espera</span></li>
+                </ul>
               </header>
               <p>Introdução à informática, lógica de programação e criação de páginas web, preparando jovens para o primeiro emprego.</p>
               <h4>Resultados</h4>
@@ -134,6 +144,9 @@
         <div class="secao__cabecalho">
           <h2 id="titulo-voluntariado">Como ser voluntário</h2>
           <p>Não é preciso ser professor. Buscamos pessoas maiores de 18 anos com disponibilidade mínima de duas horas por semana.</p>
+          <div class="alerta alerta--info">
+            <p>A próxima formação de voluntários acontece em novembro. Inscrições abertas até o dia 20.</p>
+          </div>
         </div>
         <div class="grid">
           <div class="col-12 col-md-6">
@@ -174,17 +187,27 @@
         </div>
         <div class="grid">
           <article class="cartao campanha col-12 col-md-6">
+            <ul class="lista-badges" aria-label="Situação da campanha">
+              <li><span class="badge badge--sucesso badge--status">Em andamento</span></li>
+              <li><span class="badge badge--marca">Até 31/01/2027</span></li>
+            </ul>
             <h3>Material escolar 2027</h3>
             <p>Kits completos de material para os 320 estudantes no início do ano letivo.</p>
             <p class="campanha__meta"><label for="meta-material">Arrecadado: R$ 11.200 de R$ 16.000</label><span aria-hidden="true">70%</span></p>
             <progress id="meta-material" max="16000" value="11200">70%</progress>
+            <button class="botao botao--secundario cartao__acao" type="button" data-compartilhar="#doacoes">Compartilhar campanha</button>
           </article>
 
           <article class="cartao campanha col-12 col-md-6">
+            <ul class="lista-badges" aria-label="Situação da campanha">
+              <li><span class="badge badge--sucesso badge--status">Em andamento</span></li>
+              <li><span class="badge badge--destaque">Aceita itens usados</span></li>
+            </ul>
             <h3>Novos computadores para a oficina</h3>
             <p>Ampliação do laboratório de 15 para 25 computadores, aceitando equipamentos usados em bom estado.</p>
             <p class="campanha__meta"><label for="meta-computadores">Arrecadado: 4 de 10 computadores</label><span aria-hidden="true">40%</span></p>
             <progress id="meta-computadores" max="10" value="4">40%</progress>
+            <button class="botao botao--secundario cartao__acao" type="button" data-compartilhar="#doacoes">Compartilhar campanha</button>
           </article>
 
           <div class="col-12 col-md-6">
@@ -219,8 +242,10 @@
         Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
         <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
       </address>
-      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados.</small></p>
+      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados. · <a href="componentes.html">Guia de componentes</a></small></p>
     </div>
   </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

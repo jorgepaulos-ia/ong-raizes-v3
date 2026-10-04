@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/componentes.css">
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
   <script src="js/menu.js" defer></script>
+  <script src="js/componentes.js" defer></script>
   <script src="js/mascaras.js" defer></script>
 </head>
 <body class="pagina">
@@ -199,6 +200,8 @@
             <label for="lgpd">Autorizo o uso dos meus dados para contato, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). <span class="obrigatorio" aria-hidden="true">*</span></label>
           </div>
 
+          <p class="campo__ajuda">Quer saber exatamente como usamos seus dados? <button type="button" class="link-botao" data-abrir-modal="modal-privacidade">Leia a política de privacidade</button>.</p>
+
           <div class="grupo-botoes">
             <button type="submit" class="botao">Enviar cadastro</button>
             <button type="reset" class="botao botao--secundario">Limpar</button>
@@ -233,8 +236,29 @@
         Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
         <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
       </address>
-      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados.</small></p>
+      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados. · <a href="componentes.html">Guia de componentes</a></small></p>
     </div>
   </footer>
+
+  <dialog class="modal" id="modal-privacidade" aria-labelledby="titulo-privacidade">
+    <div class="modal__cabecalho">
+      <h2 id="titulo-privacidade">Política de privacidade</h2>
+      <button class="botao-fechar" type="button" data-fechar-modal aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal__corpo">
+      <p>Seguimos a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Em resumo:</p>
+      <ul>
+        <li>Usamos seus dados apenas para contato sobre voluntariado e doações.</li>
+        <li>Não vendemos nem compartilhamos seus dados com terceiros.</li>
+        <li>Você pode pedir a correção ou a exclusão a qualquer momento.</li>
+      </ul>
+      <div class="alerta alerta--aviso">
+        <p>Este é um projeto acadêmico: nenhum dado do formulário é enviado ou armazenado.</p>
+      </div>
+    </div>
+    <div class="modal__rodape">
+      <button class="botao" type="button" data-fechar-modal>Entendi</button>
+    </div>
+  </dialog>
 </body>
 </html>
