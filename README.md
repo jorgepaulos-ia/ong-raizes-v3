@@ -24,9 +24,10 @@ ong-raizes-v3/
     ├── modulos/
     │   ├── roteador.js        navegação por hash (#/projetos) sem recarregar a página
     │   ├── dom.js             função html`` que escapa dados (proteção contra XSS)
+    │   ├── api.js             requisições externas (consulta de CEP na ViaCEP)
     │   ├── armazenamento.js   leitura e gravação no localStorage
     │   ├── validacao.js       máscaras e regras de cada campo
-    │   ├── formulario.js      eventos do cadastro: validação, rascunho, CEP, envio
+    │   ├── formulario.js      eventos do cadastro: validação, rascunho e envio
     │   ├── feedback.js        modal, confirmação e toast
     │   ├── menu.js            menu hambúrguer, submenu e contador de cadastros
     │   └── graficos.js        gráficos de Meus cadastros com a biblioteca Chart.js

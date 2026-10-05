@@ -1,7 +1,8 @@
 /*
  * Comportamento do formulário de cadastro: eventos, feedback de validação,
- * campos condicionais, busca de CEP, rascunho automático e gravação no
- * localStorage. As regras de validação ficam em validacao.js.
+ * campos condicionais, preenchimento pelo CEP e rascunho automático.
+ * Este módulo cuida só da interface: as regras ficam em validacao.js, a
+ * gravação em armazenamento.js e a consulta de CEP em api.js.
  */
 
 import { $, $$ } from './dom.js';
@@ -9,6 +10,7 @@ import { mascaras, somenteDigitos, validarCampo, querVoluntariar, querDoar } fro
 import { ler, salvar, remover, adicionarCadastro } from './armazenamento.js';
 import { mostrarToast } from './feedback.js';
 import { navegar } from './roteador.js';
+import { buscarEnderecoPorCep } from './api.js';
 
 const CHAVE_RASCUNHO = 'rascunho-cadastro';
 const CAMPOS = ['nome', 'cpf', 'nascimento', 'email', 'telefone', 'cep', 'logradouro',
@@ -88,32 +90,34 @@ function atualizarCondicionais(form) {
   grupoDoacao.disabled = grupoDoacao.hidden;
 }
 
-// ---------- Busca de endereço pelo CEP (API pública ViaCEP) ----------
+// ---------- Preenchimento do endereço pelo CEP ----------
+// A requisição em si fica em api.js; aqui só se trata a interface.
 
-async function buscarCep(form) {
+async function preencherPorCep(form) {
   const cep = somenteDigitos(form.elements.cep.value);
   const ajuda = $('#ajuda-cep', form);
   if (cep.length !== 8) return;
 
   ajuda.textContent = 'Buscando endereço…';
   try {
-    const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`, { signal: AbortSignal.timeout(5000) });
-    const dados = await resposta.json();
-    if (dados.erro) throw new Error('CEP inexistente');
-
+    const endereco = await buscarEnderecoPorCep(cep);
+    if (!endereco) {
+      ajuda.textContent = 'Não encontramos este CEP. Preencha o endereço manualmente.';
+      return;
+    }
     const preencher = (nome, valor) => {
       if (valor && !form.elements[nome].value) {
         form.elements[nome].value = valor;
         validarEMostrar(form, nome);
       }
     };
-    preencher('logradouro', [dados.logradouro, dados.bairro].filter(Boolean).join(', '));
-    preencher('cidade', dados.localidade);
-    preencher('uf', dados.uf);
+    preencher('logradouro', endereco.logradouro);
+    preencher('cidade', endereco.cidade);
+    preencher('uf', endereco.uf);
     ajuda.textContent = 'Endereço preenchido pelo CEP. Confira e informe o número.';
     salvarRascunho(form);
   } catch {
-    ajuda.textContent = 'Não encontramos este CEP. Preencha o endereço manualmente.';
+    ajuda.textContent = 'Não foi possível consultar o CEP agora. Preencha o endereço manualmente.';
   }
 }
 
@@ -202,7 +206,7 @@ export function montarFormulario(form) {
     const el = evento.target;
     if (!el.classList.contains('campo__entrada') || !CAMPOS.includes(el.name)) return;
     if (el.value || tentouEnviar()) validarEMostrar(form, el.name);
-    if (el.name === 'cep' && !validarCampo('cep', form)) buscarCep(form);
+    if (el.name === 'cep' && !validarCampo('cep', form)) preencherPorCep(form);
   });
 
   // Cliques em botões internos: descartar rascunho e links do resumo de erros
