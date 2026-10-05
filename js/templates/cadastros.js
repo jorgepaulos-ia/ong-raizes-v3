@@ -4,6 +4,7 @@ import { confirmar, mostrarToast } from '../modulos/feedback.js';
 import { atualizar } from '../modulos/roteador.js';
 import { projetos } from '../dados/conteudo.js';
 import { badge } from './componentes.js';
+import { desenharGraficos } from '../modulos/graficos.js';
 
 const ROTULOS_TIPO = {
   voluntario: ['Voluntário', 'marca'],
@@ -41,6 +42,51 @@ function cartaoCadastro(c) {
     </li>`;
 }
 
+// ---------- Dados resumidos para os gráficos ----------
+
+function contarPorTipo(cadastros) {
+  const chaves = Object.keys(ROTULOS_TIPO);
+  return {
+    rotulos: chaves.map((k) => ROTULOS_TIPO[k][0]),
+    valores: chaves.map((k) => cadastros.filter((c) => c.tipo === k).length),
+  };
+}
+
+function contarPorProjeto(cadastros) {
+  return {
+    rotulos: projetos.map((p) => p.titulo),
+    valores: projetos.map((p) => cadastros.filter((c) => c.interesses.includes(p.id)).length),
+  };
+}
+
+// Descrição em texto do gráfico, lida pelos leitores de tela no <canvas>
+const descrever = ({ rotulos, valores }) => rotulos.map((r, i) => `${r}: ${valores[i]}`).join('; ');
+
+/*
+ * Cada gráfico tem título, o <canvas> que o Chart.js desenha e uma tabela
+ * com os mesmos números, para quem não enxerga o gráfico ou se a
+ * biblioteca não carregar.
+ */
+function figuraGrafico(id, titulo, dados) {
+  return html`
+    <figure class="grafico cartao col-12 col-md-6">
+      <figcaption class="grafico__titulo">${titulo}</figcaption>
+      <div class="grafico__area">
+        <canvas id="${id}" role="img" aria-label="${titulo}. ${descrever(dados)}"></canvas>
+        <p class="grafico__aviso" aria-live="polite">Carregando gráfico…</p>
+      </div>
+      <details class="grafico__tabela">
+        <summary>Ver os dados em tabela</summary>
+        <table>
+          <thead><tr><th scope="col">Categoria</th><th scope="col">Cadastros</th></tr></thead>
+          <tbody>
+            ${dados.rotulos.map((r, i) => html`<tr><th scope="row">${r}</th><td>${dados.valores[i]}</td></tr>`)}
+          </tbody>
+        </table>
+      </details>
+    </figure>`;
+}
+
 export default {
   titulo: 'Meus cadastros',
 
@@ -70,6 +116,10 @@ export default {
                 <button class="botao botao--perigo" type="button" data-acao="limpar-tudo">Excluir todos</button>
               </div>
             </div>
+            <div class="grid graficos">
+              ${figuraGrafico('grafico-tipo', 'Cadastros por forma de contribuição', contarPorTipo(cadastros))}
+              ${figuraGrafico('grafico-projeto', 'Voluntários por projeto de interesse', contarPorProjeto(cadastros))}
+            </div>
             <ul class="grid lista-registros">
               ${[...cadastros].reverse().map(cartaoCadastro)}
             </ul>`}
@@ -77,6 +127,25 @@ export default {
   },
 
   montar(conteiner) {
+    // Gráficos (biblioteca Chart.js, carregada sob demanda)
+    const cadastros = listarCadastros();
+    if (cadastros.length > 0) {
+      const series = [
+        { canvas: conteiner.querySelector('#grafico-tipo'), dados: contarPorTipo(cadastros) },
+        { canvas: conteiner.querySelector('#grafico-projeto'), dados: contarPorProjeto(cadastros) },
+      ];
+      desenharGraficos(series)
+        .then(() => conteiner.querySelectorAll('.grafico__aviso').forEach((aviso) => aviso.remove()))
+        .catch(() => {
+          conteiner.querySelectorAll('.grafico').forEach((figura) => {
+            figura.classList.add('grafico--sem-grafico');
+            figura.querySelector('.grafico__aviso').textContent = 'Não foi possível carregar o gráfico. Os números estão na tabela abaixo.';
+            figura.querySelector('canvas').hidden = true;
+            figura.querySelector('details').open = true;
+          });
+        });
+    }
+
     // O ouvinte fica na seção, que é recriada a cada renderização. Se
     // ficasse no <main> (que é permanente), acumularia a cada visita.
     conteiner.querySelector('#area-cadastros').addEventListener('click', async (evento) => {

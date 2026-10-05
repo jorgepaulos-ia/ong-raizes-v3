@@ -49,6 +49,10 @@ ong-raizes-v3/
 | `#/cadastros` | Meus cadastros |
 | `#/componentes` | Guia de componentes |
 
+## Biblioteca externa
+
+[Chart.js 4.5.1](https://www.chartjs.org/), carregada da CDN jsDelivr como módulo ES por `import()` dinâmico, apenas quando a tela Meus cadastros é aberta. Se a CDN não responder, os dados continuam disponíveis em tabela.
+
 ## Como executar
 
 Os módulos JavaScript (`import`/`export`) não funcionam abrindo o arquivo direto do disco. Use um servidor local, por exemplo:

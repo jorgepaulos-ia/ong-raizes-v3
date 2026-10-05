@@ -1205,6 +1205,78 @@ input[type="date"].campo__entrada:is([aria-invalid="true"], [data-valido]) {
   margin-top: var(--esp-3);
 }
 
+/* ---------- Gráficos (Chart.js) em "Meus cadastros" ------------------ */
+.graficos {
+  margin-bottom: var(--esp-6);
+}
+
+.grafico {
+  margin: 0;
+}
+
+.grafico__titulo {
+  font-size: var(--fs-media);
+  font-weight: var(--peso-forte);
+  color: var(--cor-marca-escura);
+}
+
+.grafico__area {
+  position: relative;
+  height: 11rem; /* o Chart.js ocupa a altura do contêiner (maintainAspectRatio: false) */
+}
+
+.grafico__aviso {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: var(--fs-pequeno);
+  color: var(--cor-texto-suave);
+  text-align: center;
+}
+
+.grafico--sem-grafico .grafico__area {
+  height: auto;
+}
+
+.grafico--sem-grafico .grafico__aviso {
+  position: static;
+  justify-content: flex-start;
+  padding-block: var(--esp-2);
+  text-align: left;
+}
+
+.grafico__tabela summary {
+  min-height: var(--alvo-toque);
+  display: flex;
+  align-items: center;
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-medio);
+  color: var(--cor-marca);
+  cursor: pointer;
+}
+
+.grafico__tabela table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-pequeno);
+}
+
+.grafico__tabela th,
+.grafico__tabela td {
+  padding: var(--esp-2);
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: left;
+}
+
+.grafico__tabela td,
+.grafico__tabela thead th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---------- Troca de tela da SPA ------------------------------------- */
 .view:focus {
   outline: none;
