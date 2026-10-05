@@ -1,55 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Guia de componentes visuais do site do Instituto Raízes do Amanhã: botões, badges, alertas, modal e toast.">
-  <title>Guia de componentes | Instituto Raízes do Amanhã</title>
-  <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/componentes.css">
-  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
-  <script src="js/menu.js" defer></script>
-  <script src="js/componentes.js" defer></script>
-</head>
-<body class="pagina">
-  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
+import { html } from '../modulos/dom.js';
 
-  <header class="cabecalho">
-    <div class="container cabecalho__conteudo">
-      <a class="marca" href="index.html">
-        <img src="img/logo.svg" alt="" width="48" height="48">
-        <span>Instituto Raízes do Amanhã</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
-        <span class="menu-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span class="menu-toggle__texto">Menu</span>
-      </button>
-      <nav class="navegacao" id="menu-principal" aria-label="Navegação principal">
-        <ul class="menu">
-          <li class="menu__item"><a class="menu__link" href="index.html">Início</a></li>
-          <li class="menu__item menu__item--submenu">
-            <a class="menu__link" href="projetos.html">Projetos</a>
-            <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-projetos">
-              <span class="visualmente-oculto">Abrir submenu de Projetos</span>
-            </button>
-            <ul class="submenu" id="submenu-projetos">
-              <li><a class="submenu__link" href="projetos.html#reforco">Reforço Escolar</a></li>
-              <li><a class="submenu__link" href="projetos.html#leitura">Clube de Leitura</a></li>
-              <li><a class="submenu__link" href="projetos.html#tecnologia">Oficina de Tecnologia</a></li>
-              <li><a class="submenu__link" href="projetos.html#voluntariado">Como ser voluntário</a></li>
-              <li><a class="submenu__link" href="projetos.html#doacoes">Campanhas de doação</a></li>
-            </ul>
-          </li>
-          <li class="menu__item"><a class="menu__link" href="cadastro.html">Seja voluntário</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+/*
+ * Guia de componentes: referência visual e de código para quem for dar
+ * manutenção no site. O conteúdo é fixo, então o template é só o HTML.
+ */
+export default {
+  titulo: 'Guia de componentes',
 
-    <main id="conteudo">
+  render() {
+    return html`
     <div class="introducao container">
       <h1>Guia de componentes</h1>
       <p>Referência dos componentes visuais do site. Todos usam apenas as variáveis de <code>css/tokens.css</code>, e basta copiar o HTML de exemplo para reutilizá-los em novas páginas.</p>
@@ -185,26 +144,8 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <aside class="aviso" aria-label="Aviso sobre o projeto">
-    <div class="container">
-      <p>Projeto acadêmico: organização fictícia criada para a disciplina de Desenvolvimento Front-end.</p>
-    </div>
-  </aside>
-
-  <footer class="rodape">
-    <div class="container rodape__conteudo">
-      <address>
-        Instituto Raízes do Amanhã<br>
-        Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
-        <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
-      </address>
-      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados. · <a href="componentes.html">Guia de componentes</a></small></p>
-    </div>
-  </footer>
-
-  <dialog class="modal" id="modal-exemplo" aria-labelledby="titulo-modal-exemplo">
+    <dialog class="modal" id="modal-exemplo" aria-labelledby="titulo-modal-exemplo">
     <div class="modal__cabecalho">
       <h2 id="titulo-modal-exemplo">Confirme sua inscrição</h2>
       <button class="botao-fechar" type="button" data-fechar-modal aria-label="Fechar">&times;</button>
@@ -224,7 +165,6 @@
       <button class="botao" type="button" data-fechar-modal data-toast="Inscrição confirmada!">Confirmar</button>
     </div>
   </dialog>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-</body>
-</html>
+`;
+  },
+};

@@ -722,40 +722,62 @@
   box-shadow: 0 0 0 3px var(--cor-foco);
 }
 
-/* Validação: só depois que a pessoa interage com o campo (:user-valid e
-   :user-invalid não acusam erro num formulário que acabou de abrir).
-   Além da cor, há um ícone (✓ ou !) e uma frase, para não depender só
-   da cor (WCAG 1.4.1). */
-.campo__entrada:user-invalid {
+/* Validação: o módulo js/modulos/formulario.js marca o campo com
+   aria-invalid="true" (erro) ou data-valido (correto) depois que a pessoa
+   interage com ele. O aria-invalid também avisa os leitores de tela.
+   Além da cor, há ícone e mensagem escrita (WCAG 1.4.1). */
+.campo__entrada[aria-invalid="true"] {
   padding-right: var(--esp-7);
   border-color: var(--cor-erro);
   box-shadow: 0 0 0 1px var(--cor-erro);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23b3261e'/%3E%3Cpath d='M10 5v6' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='14.6' r='1.3' fill='%23fff'/%3E%3C/svg%3E");
 }
 
-.campo__entrada:user-valid {
+.campo__entrada[data-valido] {
   padding-right: var(--esp-7);
   border-color: var(--cor-sucesso);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%231e7b34'/%3E%3Cpath d='M5.5 10.5l3 3 6-6.5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-/* select e date já têm ícone próprio do navegador à direita; o seletor
-   repete os estados para vencer a especificidade das regras acima */
-select.campo__entrada:is(:user-valid, :user-invalid),
-input[type="date"].campo__entrada:is(:user-valid, :user-invalid) {
+/* select e date já têm ícone próprio do navegador à direita */
+select.campo__entrada:is([aria-invalid="true"], [data-valido]),
+input[type="date"].campo__entrada:is([aria-invalid="true"], [data-valido]) {
   background-image: none;
   padding-right: var(--esp-3);
 }
 
-.campo:has(.campo__entrada:user-invalid) .campo__rotulo {
+.campo:has([aria-invalid="true"]) .campo__rotulo {
   color: var(--cor-erro);
 }
 
-.campo:has(.campo__entrada:user-invalid)::after {
-  content: "Verifique este campo.";
+.campo__erro {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-1);
+  margin: 0;
   font-size: var(--fs-pequeno);
   font-weight: var(--peso-medio);
   color: var(--cor-erro);
+}
+
+.campo__erro[hidden] {
+  display: none;
+}
+
+.campo__erro::before {
+  content: "!";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  border-radius: 50%;
+  background: var(--cor-erro);
+  color: var(--cor-neutro-0);
+  font-size: 0.7rem;
+  font-weight: var(--peso-forte);
 }
 
 .campo__ajuda {
@@ -1052,6 +1074,160 @@ input[type="date"].campo__entrada:is(:user-valid, :user-invalid) {
   color: var(--cor-primaria-100);
   font-size: var(--fs-pequeno);
   line-height: 1.5;
+}
+
+/* ---------- Resumo de erros do formulário ---------------------------- */
+.resumo-erros__lista {
+  margin: var(--esp-2) 0 0;
+  padding-left: var(--esp-5);
+}
+
+.resumo-erros__lista .link-botao {
+  color: var(--cor-erro);
+  font-weight: var(--peso-medio);
+  text-align: left;
+}
+
+/* ---------- Botão de ação destrutiva (excluir) ----------------------- */
+.botao--perigo {
+  border-color: var(--cor-erro);
+  background: var(--cor-superficie);
+  color: var(--cor-erro);
+}
+
+.botao--perigo:hover:not(:disabled) {
+  border-color: var(--cor-erro);
+  background: var(--cor-erro);
+  color: var(--cor-neutro-0);
+  box-shadow: none;
+}
+
+/* ---------- Contador no menu ("Meus cadastros 2") -------------------- */
+.contador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  margin-left: var(--esp-2);
+  padding-inline: var(--esp-1);
+  border-radius: var(--raio-pilula);
+  background: var(--cor-secundaria-100);
+  color: var(--cor-secundaria-700);
+  font-size: var(--fs-pequeno);
+  font-weight: var(--peso-forte);
+}
+
+.contador[hidden] {
+  display: none;
+}
+
+/* ---------- Tela "Meus cadastros" ------------------------------------- */
+.barra-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-5);
+}
+
+.barra-acoes p {
+  margin: 0;
+  font-weight: var(--peso-medio);
+}
+
+.lista-registros {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.registro__topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+}
+
+.registro__nome {
+  margin: 0;
+  font-size: var(--fs-grande);
+  color: var(--cor-texto);
+  overflow-wrap: anywhere;
+}
+
+.registro__dados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--esp-3);
+  margin: 0;
+}
+
+.registro__dados dt {
+  font-size: var(--fs-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.registro__dados dd {
+  margin: 0;
+  font-weight: var(--peso-medio);
+  overflow-wrap: anywhere;
+}
+
+.registro__data {
+  font-size: var(--fs-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-2);
+  padding: var(--esp-7) var(--esp-5);
+  border: 2px dashed var(--cor-borda);
+  border-radius: var(--raio-grande);
+  text-align: center;
+}
+
+.vazio p {
+  margin: 0;
+}
+
+.vazio__titulo {
+  font-size: var(--fs-media);
+  font-weight: var(--peso-forte);
+}
+
+.vazio .botao {
+  margin-top: var(--esp-3);
+}
+
+/* ---------- Troca de tela da SPA ------------------------------------- */
+.view:focus {
+  outline: none;
+}
+
+.view--entrando {
+  animation: view-entrada 250ms ease-out;
+}
+
+@keyframes view-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+:is(h1, section, article)[tabindex="-1"]:focus {
+  outline: none;
 }
 
 /* ---------- Painel lateral do cadastro -------------------------------- */

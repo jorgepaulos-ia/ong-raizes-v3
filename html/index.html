@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Instituto Raízes do Amanhã: ONG de educação e reforço escolar para crianças e adolescentes da zona sul de São Paulo.">
+  <title>Instituto Raízes do Amanhã</title>
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <link rel="icon" href="../imagens/logo.svg" type="image/svg+xml">
+  <script type="module" src="../js/main.js"></script>
+</head>
+<body class="pagina">
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
+
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="marca" href="#/inicio">
+        <img src="../imagens/logo.svg" alt="" width="48" height="48">
+        <span>Instituto Raízes do Amanhã</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="menu-toggle__icone" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="menu-toggle__texto">Menu</span>
+      </button>
+      <nav class="navegacao" id="menu-principal" aria-label="Navegação principal">
+        <ul class="menu">
+          <li class="menu__item"><a class="menu__link" href="#/inicio" data-rota="inicio">Início</a></li>
+          <li class="menu__item menu__item--submenu">
+            <a class="menu__link" href="#/projetos" data-rota="projetos">Projetos</a>
+            <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-projetos">
+              <span class="visualmente-oculto">Abrir submenu de Projetos</span>
+            </button>
+            <ul class="submenu" id="submenu-projetos">
+              <li><a class="submenu__link" href="#/projetos/reforco">Reforço Escolar</a></li>
+              <li><a class="submenu__link" href="#/projetos/leitura">Clube de Leitura</a></li>
+              <li><a class="submenu__link" href="#/projetos/tecnologia">Oficina de Tecnologia</a></li>
+              <li><a class="submenu__link" href="#/projetos/voluntariado">Como ser voluntário</a></li>
+              <li><a class="submenu__link" href="#/projetos/doacoes">Campanhas de doação</a></li>
+            </ul>
+          </li>
+          <li class="menu__item"><a class="menu__link" href="#/cadastro" data-rota="cadastro">Seja voluntário</a></li>
+          <li class="menu__item">
+            <a class="menu__link" href="#/cadastros" data-rota="cadastros">
+              Meus cadastros
+              <span class="contador" id="contador-cadastros" hidden></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Cada tela da SPA é desenhada aqui dentro pelo roteador (js/modulos/roteador.js) -->
+  <main id="conteudo" class="view" tabindex="-1">
+    <noscript>
+      <div class="container secao">
+        <p>Este site precisa de JavaScript para funcionar. Ative o JavaScript no navegador e recarregue a página.</p>
+      </div>
+    </noscript>
+  </main>
+
+  <aside class="aviso" aria-label="Aviso sobre o projeto">
+    <div class="container">
+      <p>Projeto acadêmico: organização fictícia criada para a disciplina de Desenvolvimento Front-end. Os cadastros ficam apenas neste navegador.</p>
+    </div>
+  </aside>
+
+  <footer class="rodape">
+    <div class="container rodape__conteudo">
+      <address>
+        Instituto Raízes do Amanhã<br>
+        Rua das Palmeiras, 100, Jardim Esperança, São Paulo/SP<br>
+        <a href="mailto:contato@raizesdoamanha.org.br">contato@raizesdoamanha.org.br</a>
+      </address>
+      <p><small>&copy; 2026 Instituto Raízes do Amanhã. Todos os direitos reservados. · <a href="#/componentes">Guia de componentes</a></small></p>
+    </div>
+  </footer>
+
+  <!-- Modais e toast ficam fora do <main> para sobreviver à troca de telas -->
+  <dialog class="modal" id="modal-privacidade" aria-labelledby="titulo-privacidade">
+    <div class="modal__cabecalho">
+      <h2 id="titulo-privacidade">Política de privacidade</h2>
+      <button class="botao-fechar" type="button" data-fechar-modal aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal__corpo">
+      <p>Seguimos a Lei Geral de Proteção de Dados (Lei nº 13.709/2018). Em resumo:</p>
+      <ul>
+        <li>Usamos seus dados apenas para contato sobre voluntariado e doações.</li>
+        <li>Não vendemos nem compartilhamos seus dados com terceiros.</li>
+        <li>Você pode pedir a correção ou a exclusão a qualquer momento.</li>
+      </ul>
+      <div class="alerta alerta--aviso">
+        <p>Este é um projeto acadêmico: os dados do formulário ficam guardados apenas no seu navegador (localStorage) e podem ser apagados em Meus cadastros.</p>
+      </div>
+    </div>
+    <div class="modal__rodape">
+      <button class="botao" type="button" data-fechar-modal>Entendi</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal modal--confirmar" id="modal-confirmar" aria-labelledby="confirmar-titulo" aria-describedby="confirmar-texto">
+    <form method="dialog">
+      <div class="modal__cabecalho">
+        <h2 id="confirmar-titulo">Confirmar</h2>
+      </div>
+      <div class="modal__corpo">
+        <p id="confirmar-texto"></p>
+      </div>
+      <div class="modal__rodape">
+        <button class="botao botao--secundario" value="nao">Cancelar</button>
+        <button class="botao botao--perigo" value="sim">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

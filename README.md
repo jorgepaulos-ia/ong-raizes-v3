@@ -1,35 +1,60 @@
 # Instituto Raízes do Amanhã
 
-Projeto acadêmico das Experiências Práticas I e II, disciplina de Desenvolvimento Front-end. A ONG é fictícia.
+Projeto acadêmico das Experiências Práticas I, II e III da disciplina de Desenvolvimento Front-end. A ONG é fictícia.
 
-## Páginas
-
-- `index.html`: apresentação da ONG, missão, impacto e formas de ajudar.
-- `projetos.html`: os três projetos sociais (Reforço Escolar, Clube de Leitura, Oficina de Tecnologia).
-- `cadastro.html`: formulário de voluntários e doadores com validações nativas e máscaras de CPF, telefone e CEP.
+Na Experiência III, o site virou uma **SPA** (Single Page Application): uma única página HTML cujo conteúdo é trocado por JavaScript, sem recarregar.
 
 ## Estrutura de pastas
 
 ```
-ong-raizes/
-├── index.html
-├── projetos.html
-├── cadastro.html
+ong-raizes-v3/
+├── index.html                 redireciona para html/index.html (exigência do GitHub Pages)
+├── html/
+│   └── index.html             página única da SPA: cabeçalho, <main> vazio, rodapé e modais
 ├── css/
-│   ├── tokens.css       (design system: cores, tipografia, espaçamentos)
-│   ├── base.css         (estilos dos elementos HTML)
-│   ├── layout.css       (grid de 12 colunas e breakpoints)
-│   └── componentes.css  (componentes no padrão BEM, com Flexbox)
-├── js/
-│   ├── mascaras.js      (máscaras e validação do CPF no cadastro)
-│   └── menu.js          (menu hambúrguer e submenu de Projetos)
-└── img/  (logotipo e ilustrações em SVG)
+│   ├── tokens.css             design system: cores, tipografia, espaçamentos
+│   ├── base.css               estilos dos elementos HTML
+│   ├── layout.css             grid de 12 colunas e breakpoints
+│   └── componentes.css        componentes no padrão BEM
+├── imagens/                   logotipo e ilustrações em SVG
+└── js/
+    ├── main.js                ponto de entrada: registra as rotas e inicia os módulos
+    ├── dados/
+    │   └── conteudo.js        projetos, campanhas e listas usados pelos templates
+    ├── modulos/
+    │   ├── roteador.js        navegação por hash (#/projetos) sem recarregar a página
+    │   ├── dom.js             função html`` que escapa dados (proteção contra XSS)
+    │   ├── armazenamento.js   leitura e gravação no localStorage
+    │   ├── validacao.js       máscaras e regras de cada campo
+    │   ├── formulario.js      eventos do cadastro: validação, rascunho, CEP, envio
+    │   ├── feedback.js        modal, confirmação e toast
+    │   └── menu.js            menu hambúrguer, submenu e contador de cadastros
+    └── templates/
+        ├── componentes.js     badge, alerta, cartão de projeto e de campanha
+        ├── inicio.js          tela Início
+        ├── projetos.js        tela Projetos
+        ├── cadastro.js        tela Cadastro
+        ├── cadastros.js       tela Meus cadastros (dados do localStorage)
+        ├── guia.js            Guia de componentes
+        └── nao-encontrada.js  tela de página não encontrada (404)
 ```
 
-## Validação
+## Rotas
 
-As três páginas, o CSS e as imagens SVG passam no W3C Nu Html Checker sem erros ou avisos.
+| Endereço | Tela |
+|---|---|
+| `#/inicio` | Início |
+| `#/projetos` | Projetos (aceita `#/projetos/leitura` para ir direto a uma seção) |
+| `#/cadastro` | Formulário de cadastro |
+| `#/cadastros` | Meus cadastros |
+| `#/componentes` | Guia de componentes |
 
-## Como abrir
+## Como executar
 
-Basta abrir `index.html` no navegador. Nenhuma instalação é necessária.
+Os módulos JavaScript (`import`/`export`) não funcionam abrindo o arquivo direto do disco. Use um servidor local, por exemplo:
+
+```
+python3 -m http.server
+```
+
+e acesse `http://localhost:8000`. No GitHub Pages, o site funciona sem configuração.
