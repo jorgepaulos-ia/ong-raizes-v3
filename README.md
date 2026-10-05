@@ -28,7 +28,8 @@ ong-raizes-v3/
     │   ├── validacao.js       máscaras e regras de cada campo
     │   ├── formulario.js      eventos do cadastro: validação, rascunho, CEP, envio
     │   ├── feedback.js        modal, confirmação e toast
-    │   └── menu.js            menu hambúrguer, submenu e contador de cadastros
+    │   ├── menu.js            menu hambúrguer, submenu e contador de cadastros
+    │   └── graficos.js        gráficos de Meus cadastros com a biblioteca Chart.js
     └── templates/
         ├── componentes.js     badge, alerta, cartão de projeto e de campanha
         ├── inicio.js          tela Início
